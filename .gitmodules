@@ -1,0 +1,3 @@
+[submodule "ChainX"]
+	path = ChainX
+	url = https://github.com/at-cg/ChainX
