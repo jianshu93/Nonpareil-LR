@@ -1,6 +1,1 @@
-[submodule "ChainX"]
-	path = ChainX
-	url = https://github.com/at-cg/ChainX
-[submodule "gsearch"]
-	path = gsearch
-	url = https://github.com/jianshu93/gsearch
+
