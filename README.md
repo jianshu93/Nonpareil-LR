@@ -11,7 +11,8 @@ The key step is to obtain the number of non-redundant reads via all versus all c
 2. To have even accurate estimation of alignment-based identity for sequneces with different length to find the most similar sequneces, we use co-linear chaining of anchors (can ber minimizers, MUMs or MEMs) with overlaps and gap costs, which approximate edit distance well above 90% identity (semi-global or global alignmend mode).
 3. Exact semi-global alignment via vsearch implementation (not unit score scheme as in Edlib) only for sequences with a edit score for above 94% sequence identity, obtained above via chaining.
 
-![](NonpareilX.jpg)
+![](nonredun.jpg)
+
 
 ## Lander-Waterman expectation
 We will then follow the same equation for estimation of coverage after obtaining the number of non-redundant reads in above steps.
