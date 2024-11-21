@@ -8,10 +8,37 @@ Metagenomic long reads sequencing is now more and more popular. Estimating the c
 ## New algorithm for calculating the number of non-redundant reads
 The key step is to obtain the number of non-redundant reads via all versus all comparison of each sequence in the metagenome, which is O(N^2), impractical for real-world metagenomic samples. To solve the problem, we adopt cutting-edge sketching algorithms and graph based nearest neighbor search for finding neighbor sequences of each sequence in a metagenome. There are three steps involved:
 1. (Order) MinHash & HNSW for extracting the most similar sequences in an approximate manner for distantly related sequences in metagenome to each sequence. Order MinHash is kmer-based sketching method, approximating edit distance quite well. Via HNSW, the running time respect to number of sequences in metagenome is O(N*log(N)), see GSearch paper for details. However, this method is not optimal for sequences with different length.
-2. To have even accurate estimation of alignment-based identity for sequneces with different length to find the most similar sequneces, we use co-linear chaining of anchors (can ber minimizers, MUMs or MEMs) with overlaps and gap costs, which approximate edit distance well above 90% identity (semi-global or global alignmend mode).
-3. Exact semi-global alignment via adaptive banded dynamic programming implementation (not unit score scheme as in Edlib) (Liu et.al., 2023) only for the sequence with the highest chaining score.
+2. To have even accurate estimation of alignment-based identity for sequneces with different length to find the most similar sequneces, we use co-linear chaining of anchors (can ber minimizers, MUMs or MEMs) with overlaps and gap costs, which approximate edit distance well above 90% identity (semi-global mode).
+3. Exact semi-global alignment via adaptive banded dynamic programming implementation (not unit score scheme as in Edlib) (Liu et.al., 2023) only for the sequence with the highest chaining/alignment score.
 
 ![](nonredun.jpg)
+
+## Usage
+1. build HNSW database
+```bash
+adas-build -h
+
+ ************** initializing logger *****************
+
+MinHash sketching and Hierarchical Navigable Small World Graphs (HNSW) building for Long Sequences
+
+Usage: adas-build [OPTIONS] --input <FASTA_FILE>
+
+Options:
+  -i, --input <FASTA_FILE>                    Input FASTA file
+  -k, --kmer-size <KMER_SIZE>                 Size of k-mers, must be ≤14 [default: 8]
+  -s, --sketch-size <SKETCH_SIZE>             Size of the sketch [default: 512]
+  -t, --threads <THREADS>                     Number of threads for sketching [default: 1]
+      --hnsw-capacity <HNSW_CAPACITY>         HNSW capacity parameter [default: 50000000]
+      --hnsw-ef <HNSW_EF>                     HNSW ef parameter [default: 1600]
+      --max_nb_connection <HNSW_MAX_NB_CONN>  HNSW max_nb_conn parameter [default: 256]
+  -h, --help                                  Print help
+  -V, --version                               Print version
+```
+2. Extract K Nearest neighbors (KNN)
+
+
+3. Compute number of non-redundant reads
 
 
 ## Lander-Waterman expectation
